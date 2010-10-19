@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Facebook Example</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="/css/facebook.css" type="text/css" media="screen" title="Facebook" charset="utf-8">
+		<script type="text/javascript" charset="utf-8">
+			$(function() {
+		
+			});
+		</script>
+	</head>
+	<body>
+	
+		<div class="clearfix uiHeaderTop">
+			<a class="uiHeaderActions rfloat uiButton uiButtonDefault uiButtonMedium" href="#"><span class="uiButtonText">Offer Job</span></a>
+			<a class="uiHeaderActions rfloat uiButton uiButtonDefault uiButtonMedium" href="#"><span class="uiButtonText">Need Job</span></a>
+			<div><h2 class="uiHeaderTitle"><i class="uiHeaderImage img spritemap_8zte1v sx_6189f0"></i>Teen Job Board</h2></div>
+		</div>
+	
+    {% if current_user %}
+      <p><a href="{{ current_user.profile_url }}"><img src="http://graph.facebook.com/{{ current_user.id }}/picture?type=square"/></a></p>
+      <p>Hello, {{ current_user.name|escape }}</p>
+    {% endif %}
+
+    <fb:login-button autologoutlink="true"></fb:login-button>
+		<fb:like href="http://www.google.com"></fb:like>
+		
+		<a id="yjobboard-requesthelp" class="uiHeaderActions rfloat uiButton uiButtonDefault uiButtonMedium" href="#"><span class="uiButtonText">Offer Job</span></a>
+
+		<h1>Test af dialog indhold</h1>
+<div class="pop_content" id="pop_content">
+	<h2 class="dialog_title">
+		<span>Offer Job</span>
+	</h2>
+	<div class="dialog_content">
+		<div class="dialog_body">
+			<div class="gigaboxx_composer" id="gigaboxx_composer">
+				<div class="MessageComposer UIComposer clearfix UIComposer_STATE_PIC_NONE" id="c4cbc5430afb9e8d61257200">
+					<div class="gigaboxx_composer_fieldset">
+						<div class="field_set_wrapper">
+							<dl class="field_set clearfix gigaboxx_field_set">
+								<dt class="field_set_field gigaboxx_field">
+									To:
+								</dt>
+								<dd class="field_set_field gigaboxx_field">
+									<input type="text" class="inputtext" id="subject" name="subject" value="">
+								<dt class="field_set_field gigaboxx_field">
+									Subject:
+								</dt>
+								<dd class="field_set_field gigaboxx_field">
+									<input type="text" class="inputtext" id="subject" name="subject" value="">
+								</dd>
+							</dl>
+						</div>
+					</div>
+					<div class="gigaboxx_composer_message_label">
+						Message:
+					</div>
+					<div class="UIComposer_Content">
+						<div class="UIComposer_InputArea_Base UIComposer_InputArea">
+							<div class="UIComposer_InputShadow">
+								<textarea class="UIComposer_TextArea" name="status"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({appId: '{{ facebook_app_id }}', status: true, cookie: true,
+                 xfbml: true});
+        FB.Event.subscribe('{% if current_user %}auth.logout{% else %}auth.login{% endif %}', function(response) {
+          window.location.reload();
+        });
+
+				
+
+			// FB.provide('UIServer.Methods', {
+			// 	'jobboard.add': {
+			// 	    size      : { width: 460, height: 226 },
+			// 	    url       : 'tab',
+			// 	    transform : FB.UIServer.genericTransform
+			// 	  }
+			// 	});
+
+			// FB.api(
+			//   {
+			//     method: 'fql.query',
+			//     query: 'SELECT name FROM user WHERE uid=5526183'
+			//   },
+			//   function(response) {
+			//     alert('Name is ' + response[0].name);
+			//   }
+			// );
+
+				$("#yjobboard-requesthelp").click(function() {
+					var d = FB.Dialog.create({content: '<div class="pop_content" id="pop_content"><h2 class="dialog_title"><span>Request Help</span></h2><div class="dialog_content"><div class="dialog_body"><div class="gigaboxx_composer" id="gigaboxx_composer"><div class="MessageComposer UIComposer clearfix UIComposer_STATE_PIC_NONE" id="c4cbc5430afb9e8d61257200"><div class="gigaboxx_composer_fieldset"><div id="c4cbc5430afb9e8d61257200_error" class="UIMessageBox error" style="display: none;"><h2 class="main_message" id="c4cbc5430afb9e8d61257200_title"></h2><p class="sub_message" id="c4cbc5430afb9e8d61257200_msg"></p></div><div class="field_set_wrapper"><dl class="field_set clearfix gigaboxx_field_set"><dt class="field_set_field gigaboxx_field">To:</dt><dd class="field_set_field gigaboxx_field"><div tabindex="-1" id="ids_c4cbc5430afb9e8d61257200" class="tokenizer clearfix"><span class="placeholder" style="" id="c4cbc5430b23a62422410232_tokenizer_placeholder"></span><span class="tokenizer_stretcher">^_^</span><span class="tab_stop"><input type="text" id="c4cbc5430b23a62422410232_token_input"></span><div class="tokenizer_input tokenizer_input_borderless"><div><input size="1" class=" DOMControl_placeholder "><span class="tokenizer_input_shadow">^_^</span></div></div></div></dd><dt class="field_set_field gigaboxx_field">Subject:</dt><dd class="field_set_field gigaboxx_field"><input type="text" class="inputtext" id="subject" name="subject" value=""></dd></dl></div></div><div class="gigaboxx_composer_message_label">Message:</div><div class="UIComposer_Content"><div class="UIComposer_InputArea_Base UIComposer_InputArea"><div class="UIComposer_InputShadow"><textarea id="c4cbc5430afb9e8d61257200_input" class="UIComposer_TextArea" name="status" onfocus="window.UIComposer &amp;&amp; UIComposer.focusInstance(&quot;c4cbc5430afb9e8d61257200&quot;);"></textarea></div></div><div class="UIComposer_AttachmentArea"><div class="UIComposer_AttachmentArea_Shadow"><div class="UIComposer_AttachmentArea_Header"><a href="#" class="UIComposer_AttachmentArea_CloseButton"></a><div class="UIComposer_AttachmentTitle"></div></div><div class="UIComposer_AttachmentArea_Cache"><div class="UIComposer_AttachmentArea_Loader"><img class="img" src="http://b.static.ak.fbcdn.net/rsrc.php/zb/r/GsNJNwuI-UM.gif" style="height:11px;width:16px;"></div></div></div></div><div id="composer_buttons"><div class="UIComposer_ButtonArea" id="c4cbc5430afb9e8d61257200_buttons"><ul class="UIComposer_Buttons"><li class="UIComposer_FormButtons"><label class="UIComposer_SubmitButton uiButton uiButtonConfirm uiButtonLarge"><input value="Send" type="submit"></label><a class="UIComposer_CancelButton uiButton uiButtonDefault uiButtonLarge" href="#" onclick="Dialog.getCurrent().hide(); return false;"><span class="uiButtonText">Cancel</span></a></li><li class="UIComposer_PrivacyEtc"></li></ul><ul class="UIComposer_Attachments" style="visibility: visible; "><li class="UIComposer_AttachmentPrompt">Attach:</li><li class="UIComposer_Attachment"><a class="uiTooltip uiButtonNoText uiButton uiButtonDefault uiButtonMedium uiButtonSuppressed" href="?pub=2305272732"><i class="mrs customimg img spritemap_3e9q9m sx_187d0c"></i><span class="uiButtonText"></span><span class="uiTooltipWrap top left lefttop"><span class="uiTooltipText">Photo</span></span></a></li><li class="UIComposer_Attachment"><a class="uiTooltip uiButtonNoText uiButton uiButtonDefault uiButtonMedium uiButtonSuppressed" href="?pub=2392950137"><i class="mrs customimg img spritemap_3e9q9m sx_fff462"></i><span class="uiButtonText"></span><span class="uiTooltipWrap top left lefttop"><span class="uiTooltipText">Video</span></span></a></li><li class="UIComposer_Attachment"><a class="uiTooltip uiButtonNoText uiButton uiButtonDefault uiButtonMedium uiButtonSuppressed" href="?pub=2309869772"><i class="mrs customimg img spritemap_3e9q9m sx_1daf83"></i><span class="uiButtonText"></span><span class="uiTooltipWrap top left lefttop"><span class="uiTooltipText">Link</span></span></a></li></ul></div></div></div></div></div></div></div></div>', closeIcon: true, onClose: function() {
+						FB.Dialog.remove(d);
+					}});
+					FB.Dialog.show(d);
+					return false;
+
+					
+
+
+					
+					// FB.ui({ method: 'jobboard.add' }, function(rsp) {});
+					
+					// FB.ui(
+					//   {
+					//     method: 'stream.publish',
+					//     attachment: {
+					//       name: 'Connect',
+					//       caption: 'The Facebook Connect JavaScript SDK',
+					//       description: (
+					//         'A small JavaScript library that allows you to harness ' +
+					//         'the power of Facebook, bringing the user\'s identity, ' +
+					//         'social graph and distribution power to your site.'
+					//       ),
+					//       href: 'http://fbrell.com/'
+					//     },
+					//     action_links: [
+					//       { text: 'fbrell', href: 'http://fbrell.com/' }
+					//     ]
+					//   },
+					//   function(response) {
+					//     if (response && response.post_id) {
+					//       alert('Post was published.');
+					//     } else {
+					//       alert('Post was not published.');
+					//     }
+					//   }
+					// );	
+					
+				});
+      };
+      (function() {
+        var e = document.createElement('script');
+        e.type = 'text/javascript';
+        e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+        e.async = true;
+        document.getElementById('fb-root').appendChild(e);
+      }());
+    </script>
+  </body>
+</html>

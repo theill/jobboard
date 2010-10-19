@@ -1,0 +1,19 @@
+{% extends "master.html" %}
+
+{% block body %}
+
+<div class="clearfix uiHeaderTop">
+	<div><h2 class="uiHeaderTitle"><i class="uiHeaderImage img spritemap_8zte1v"></i>Offer Work</h2></div>
+</div>
+
+<form action="offer_submit" method="post" accept-charset="utf-8">
+	<input type="checkbox"> House<br />
+	<input type="checkbox"> Garden<br />
+	<input type="checkbox"> IT<br />
+	<input type="checkbox"> Miscellaneous<br />
+	<textarea id="resume" cols="30" rows="10"></textarea>
+
+	<p><input type="submit" value="Continue &rarr;"></p>
+</form>
+
+{% endblock %}

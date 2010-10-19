@@ -1,0 +1,36 @@
+{% extends "master.html" %}
+
+{% block body %}
+
+<div class="pop_content" id="pop_content">
+	<h2 class="dialog_title">
+		<span>Offer Labor</span>
+	</h2>
+	<div class="dialog_content">
+		<div class="dialog_body">
+			<form action="offer" method="post" accept-charset="utf-8">
+				<p>
+					<label for="skills">Skills</label><br />
+					{% for category in categories %}
+						<input type="checkbox" name="skills[]" id="skill_{{ category.id }}" value="{{ category.id }}"> <label for="skill_{{ category.id }}">{{ category.name }}</label><br />
+					{% endfor %}
+				</p>
+
+				<p>
+					<label for="">Description</label><br />
+					<textarea name="description" id="description" cols="30" rows="5"></textarea>
+				</p>
+				
+				<p>
+					<label for="salary">Hourly Salary</label><br />
+					<input type="text" name="salary" value="" id="salary">
+				</p>
+
+				<p><input type="submit" value="Done"></p>
+			</form>
+
+		</div>
+	</div>
+</div>
+
+{% endblock %}

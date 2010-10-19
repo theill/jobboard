@@ -1,0 +1,34 @@
+{% extends "master.html" %}
+
+{% block body %}
+
+<div class="uiHeader uiHeaderWithImage uiHeaderPage">
+	<div class="clearfix uiHeaderTop">
+		<div>
+			<h2 class="uiHeaderTitle"><i class="uiHeaderImage img"></i>Available labor</h2>
+		</div>
+	</div>
+</div>
+
+<table border="0" cellspacing="5" cellpadding="5">
+	<tr>
+		<th>Select</th>
+		<th></th>
+		<th>Type</th>
+		<th>Location</th>
+		<th>Salary</th>
+		<th></th>
+	</tr>
+	{% for offer in offers %}
+	<tr class="query-facebook" data-facebook_id="{{ offer.user_id }}">
+		<td><input type="checkbox"></td>
+		<td><fb:profile-pic uid="{{ offer.user_id }}" size="square" facebook-logo="false"></fb:profile-pic></td>
+		<td><fb:name uid="{{ offer.user_id }}" firstnameonly="true" useyou="false"></fb:name> offers work in {{ offer.skills|format_skills }}.</td>
+		<td><span class="location">Unknown</span></td>
+		<td>{{ offer.salary }}</td>
+		<td><a href="/offer/{{ offer.key }}">view offer</a></td>
+	</tr>
+	{% endfor %}
+</table>
+
+{% endblock %}

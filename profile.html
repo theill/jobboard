@@ -1,0 +1,41 @@
+{% extends "master.html" %}
+
+{% block head %}
+<meta property="og:title" content="my title"/> 
+<meta property="og:type" content="public_figure"/> 
+<meta property="og:image" content="http://graph.facebook.com/{{ offer.user_id }}/picture?type=square"/> 
+<meta property="og:url" content="{{ page_url }}"/> 
+<meta property="og:site_name" content="My page name"/> 
+<meta property="og:app_id" content="{{ facebook_app_id }}"/> 
+{% endblock %}
+
+{% block body %}
+
+<div class="uiHeader uiHeaderWithImage uiHeaderPage">
+	<div class="clearfix uiHeaderTop">
+		<div>
+			<h2 class="uiHeaderTitle"><i class="uiHeaderImage img"></i>Worker Profile</h2>
+		</div>
+	</div>
+</div>
+
+<p>
+	<img src="http://graph.facebook.com/{{ offer.user_id }}/picture?type=large"/>
+</p>
+
+<p>
+	{{ offer.description|escape }}
+</p>
+
+{% ifequal current_user.id offer.user_id %}
+<b style="color: red">This is your profile</b>
+{% endifequal %}
+
+{% ifnotequal current_user.id offer.user_id %}
+<a class="uiButton uiButtonMedium" href="#" id="yjobboard-contact" data-facebook_id="{{ offer.user_id }}"><span class="uiButtonText">Write on Wall</span></a>
+<fb:like show_faces="false" href="{{ page_url }}"></fb:like>
+{% endifnotequal %}
+
+
+
+{% endblock %}

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>{% block title %}Job Board{% endblock %}</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" href="/css/facebook.css" type="text/css" media="screen" title="Facebook" charset="utf-8" />
+		<style type="text/css" media="screen">
+			.uiHeaderImage.img {
+				background-image: url(/img/fb-logo16x16.png);
+				background-repeat: no-repeat;
+				display: inline-block;
+				height: 16px;
+				width: 16px;
+			}
+		</style>
+		{% block head %}{% endblock %}
+	</head>
+	<body>
+		
+		{% block body %}{% endblock %}
+		
+		<fb:login-button perms="read_stream,publish_stream,user_about_me,user_activities,user_birthday,user_education_history,user_interests,user_location,user_work_history,user_checkins" autologoutlink="true"></fb:login-button>
+		
+		<div id="fb-root"></div>
+		<script>
+			window.fbAsyncInit = function() {
+				FB.init({appId: '{{ facebook_app_id }}', status: true, cookie: true, xfbml: true});
+				// FB.Event.subscribe('{% if current_user %}auth.logout{% else %}auth.login{% endif %}', function(response) {
+				//	 window.location.reload();
+				// });
+				FB.Event.subscribe('auth.sessionChange', function(response) {
+					if (response.session) {
+						// A user has logged in, and a new cookie has been saved
+					} else {
+						// The user has logged out, and the cookie has been cleared
+					}
+				});
+				
+				// FB.login(function(response) {
+				// 	 if (response.session) {
+				// 		 if (response.perms) {
+				// 			 // user is logged in and granted some permissions.
+				// 			 // perms is a comma separated list of granted permissions
+				// 		 } else {
+				// 			 // user is logged in, but did not grant any permissions
+				// 		 }
+				// 	 } else {
+				// 		 // user is not logged in
+				// 	 }
+				// }, {perms:'read_stream,publish_stream'});
+
+				$(".query-facebook").each(function() {
+					var name = $(this).find(".name");
+					var location = $(this).find(".location");
+					FB.api('/' + $(this).attr("data-facebook_id"), function(response) {
+						name.html(response.first_name);
+						// location.html(response.work);
+					});
+				});
+			};
+
+			$("#yjobboard-contact").click(function() {
+				var target_id = $(this).attr("data-facebook_id")
+				FB.ui(
+					 {
+						 method: 'stream.publish',
+						 message: '',
+						 target_id: target_id
+					 },
+					 function(response) {
+						 if (response && response.post_id) {
+							 alert('Post was published.\nTODO: update view');
+						 } else {
+							// do nothing
+						 }
+					 }
+				 );				
+			});
+
+			$("#yjobboard-offerwork").click(function() {
+				var d = FB.Dialog.create({content: '', loader:true, closeIcon: true, onClose: function() {
+					FB.Dialog.remove(d);
+				}});
+				
+				$.get('/offerwork', function(data) {
+					FB.Content.append(data, d);
+					FB.Dialog.show(d);
+				});
+				
+				return false;
+			});
+
+			(function() {
+				var e = document.createElement('script');
+				e.type = 'text/javascript';
+				e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+				e.async = true;
+				document.getElementById('fb-root').appendChild(e);
+				}());
+		</script>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+{% extends "master.html" %}
+
+{% block body %}
+
+<div class="uiHeader uiHeaderWithImage uiHeaderPage">
+	<div class="clearfix uiHeaderTop">
+		<div class="search_bar_container uiHeaderActions rfloat">
+			<a id="yjobboard-offerwork" bindpoint="root" class="uiButton uiButtonMedium uiButtonDefault UIActionButtonIcon" href="#"><i style="background-position: -4px -361px; " class="img"></i>
+  			<span class="uiButtonText" bindpoint="text">New Labor</span>
+			</a>
+		</div>
+		<div>
+			<h2 class="uiHeaderTitle"><i class="uiHeaderImage img spritemap_8zte1v sx_e0c16f"></i>Job Board (for user {{ current_user.id }})</h2>
+		</div>
+	</div>
+</div>
+
+<p>
+	<fb:intl desc="Asking whether user wants to give a book to someone">
+		Looking for labor? <a href="/offers">Browse available workers</a> - (view list of all available people having setup a profile)
+	</fb:intl>
+</p>
+
+<h2>Browse by categories (TODO)</h2>
+<ul>
+{% for category in categories %}
+	<li>{{ category.name }}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
